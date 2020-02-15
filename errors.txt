@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/scenes.rpy", line 36: u'Jump' is not a keyword argument or valid child for the hotspot statement.
+    hotspot(274, 257, 155, 154) Jump ("books")
+                                    ^
+
+Ren'Py Version: Ren'Py 7.3.5.606
+Thu Feb 13 17:27:57 2020
