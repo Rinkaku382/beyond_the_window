@@ -20,8 +20,8 @@ screen apartment1screen:
         idle "arguebase.png"
         hover "arguehover.png"
         ground "arguebase.png"
-        hotspot(125, 45, 689, 998) action Jump("herstart")
-        hotspot(900, 35, 855, 1024) action Jump ("himstart")
+        hotspot(485, 268, 409, 674) action Jump("herstart")
+        hotspot(1062, 267, 413, 520) action Jump ("himstart")
 
 screen apartment4screen:
     imagemap:
