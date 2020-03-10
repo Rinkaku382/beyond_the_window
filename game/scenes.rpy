@@ -28,13 +28,13 @@ screen apartment4screen:
         idle "solitude.png"
         hover "solitudehover.png"
         ground "solitude.png"
-        hotspot(809, 608, 295, 289) action Jump ("tv")
+        hotspot(815, 622, 279, 293) action Jump ("tv")
         hotspot(0, 540, 793, 537) action Jump ("bed")
-        hotspot(0, 179, 256, 316) action Jump ("windowsol")
-        hotspot(669, 206, 161, 271) action Jump ("cig")
-        hotspot(1159, 196, 341, 572) action Jump ("mirror")
-        hotspot(274, 257, 155, 154) action Jump ("books")
-        hotspot(1523, 684, 279, 203) action Jump ("phone")
+        hotspot(2, 176, 238, 364) action Jump ("windowsol")
+        hotspot(747, 311, 104, 152) action Jump ("cig")
+        hotspot(1174, 216, 335, 564) action Jump ("mirror")
+        hotspot(258, 178, 273, 223) action Jump ("books")
+        hotspot(1501, 742, 238, 125) action Jump ("phone")
 
 screen apartment3screen:
     imagemap:

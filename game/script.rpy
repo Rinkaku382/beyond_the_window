@@ -10,12 +10,14 @@ define d = Character("Game Director")
 define t = Character("Tech Lead")
 define a = Character("Lead Artist")
 define i = Character("Interviewer")
+define f = Character("Old Friend")
 
 init:
     $ timer_range = 0
     $ timer_jump = 0
 
 label start:
+    stop music fadeout(3.0)
     scene black
     with slowerfade
     """
@@ -765,7 +767,7 @@ label apartment3_2:
     jump apartment3_3
 label apartment3_3:
     if ease ==  100:
-        scene overworkingposend
+        scene overworkingnegend
         with slowfade
         i "The story of this project seems to be interesting, could you tell me more about it?"
         d """
@@ -796,7 +798,7 @@ label apartment3_3:
         with slowfade
         jump room
     if ease == 0:
-        scene overworkingnegend
+        scene overworkingneutend
         with slowfade
         """
         Choices and consequences can be cruel.
@@ -813,21 +815,190 @@ label apartment3_3:
 
 ##### SOLITUDE SCENE START ############################################################################################################################
 label apartment4:
+    $ phonering = False
+    $ sleep = False
+    $ read = False
+    $ mirror = False
+    $ smoke= False
+    $ tv = False
+    $ windowlook = False
+    $ boredom = 50
     scene solitude
     with slowfade
-    "aaa"
+    """
+    In the fourth and last apartment lives a young girl.
+
+    In a morning of boredom, she's waiting for a phonecall.
+
+    All over the walls and furniture there are signs that she's alone.
+
+    Her loneliness though, is only proof of her complete freedom.
+
+    Freedom to act, freedom to choose.
+
+    She can do whatever she wants, use whatever she wants to spend some time while she waits.
+    """
+label apt4screen:
     call screen apartment4screen
 label tv:
-    "aaa"
+    if tv == False:
+        """
+        A normal and very old television that her parents gave to her some time ago.
+
+        The colours are pale and it doesn't receive the signal so well.
+
+        But apart from that, she doesn't mind watching it, even though she sometimes get bored.
+        """
+        menu:
+            "Turn it on.":
+                $ tv = True
+                $ boredom += 10
+                """
+                On every channel there are only boring programs.
+
+                Even though she searches for quite some time, she finds nothing truly exciting.
+                """
+            "Leave it.":
+                """
+                She decides to not turn it on.
+
+                There certainly are more interesting things to do in the room.
+                """
+    if tv == True:
+        "She already watched television."
+    jump apt4screen
 label bed:
-    "aaa"
+    if bed == False:
+        """
+        A noisy old bed, covered with her favourite duvet and blankets.
+
+        It always keep her warm during cold days and nights.
+
+        Now that she's thinking about it, she feels a little sleepy...
+        """
+        menu:
+            "Sleep.":
+                $ bed = True
+                $ boredom += 20
+                """
+                As she lies down on the bed, covering herself up with the duvet and blanket, she fall asleep.
+
+                She doesn't know how long, but she sleeps for quite some time.
+
+                Her dreams are sweet and beautiful.
+                """
+            "Don't sleep.":
+                """
+                It's better if she doesn't, indeed.
+
+                The phonecall she's waiting for is very important and not answering could have terrible consequences.
+                """
+    if bed == True:
+        "She doesn't want to sleep anymore."
+    jump apt4screen
 label windowsol:
-    "aaa"
+    if windowlook == False:
+        """
+        A dusty window.
+
+        Sometimes it stuck itself and it's hard to open it.
+        """
+        menu:
+            "Watch outside.":
+                $ windowlook = True
+                $ boredom -= 5
+                """
+                Outside the window she sees the facades of other buildings.
+
+                Her eyes wander through all the windows and she can't help but to ask herself who lives in all those houses? How are their lives?
+                """
+            "Don't watch outside.":
+                """
+                She stares at the window but doesn't reach it.
+
+                She prefers doing something else.
+                """
+    if windowlook == True:
+        "She has already watched outside the window."
+    jump apt4screen
 label cig:
-    "aaa"
+    if smoke == False:
+        "In the ashtray there is a cigarette she was smoking a while ago."
+        menu:
+            "Smoke it.":
+                $ smoke = True
+                $ boredom -= 10
+                """
+                In the ashtray there is a cigarette she was smoking a while ago.
+
+                She lights it, then takes a puff.
+
+                The smoke flows in the air, filling the room calmly.
+
+                She feels relaxed, as she watches the small cloud disappearing in the space around her.
+                """
+            "Don't smoke it.":
+                "She leaves it where it is, searching for something else to do."
+    if smoke == True:
+        "She has already smoked."
+    jump apt4screen
 label mirror:
-    "aaa"
+    if mirror == False:
+        """
+        A shiny mirror occupies a large portion of the wall.
+
+        As everything else, it was given to her by her parents.
+
+        Even though it's useful, she doesn't like to stare at herself. In fact, it annoys her a lot.
+        """
+        menu:
+            "Stare just a little.":
+                $ mirror = True
+                $ boredom += 10
+                "She really doesn't like to watch her body. Especially if there's no usefulness in doing so."
+            "Don't stare.":
+                "In fact, she doesn't want to do it, so it's better not to."
+    if mirror == True:
+        "She doesn't want to stare at herself again."
+    jump apt4screen
 label books:
-    "aaa"
+    if read == False:
+        """
+        A small group of books.
+
+        Even though they are few, she likes books, but doesn't want to fill the room with them.
+
+        So she has bought only the ones she likes the most and borrows others from a nearby library.
+        """
+        menu:
+            "Read one.":
+                $ read = True
+                $ boredom -= 20
+                """
+                She takes one of the books from the shelf, after a careful choice.
+
+                It's a book of poetries, written by Arseny Tarkovsky.
+
+                She opens it, searching for a specific poem.
+                """
+            "Don't read.":
+                "Reading is not something she wants to do, for now at least."
+    if read == True:
+        "She has read enough."
+    jump apt4screen
 label phone:
-    "aaa"
+    if boredom >= 75:
+        scene solphone
+        with fade
+        "aaa"
+    if boredom <= 25:
+        scene solphone
+        with fade
+        "bbb"
+    else:
+        """
+        Like everything in the room, even the telephone is old.
+
+        It's still not ringing. She wanders how much time she'll have to wait.
+        """
+    jump apt4screen

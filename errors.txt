@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/scenes.rpy", line 36: u'Jump' is not a keyword argument or valid child for the hotspot statement.
-    hotspot(274, 257, 155, 154) Jump ("books")
-                                    ^
+File "game/script.rpy", line 861: expected menuitem
+    jump apt4screen
+    ^
 
-Ren'Py Version: Ren'Py 7.3.5.606
-Thu Feb 13 17:27:57 2020
+File "game/script.rpy", line 886: expected menuitem
+    jump apt4screen
+    ^
+
+Ren'Py Version: Ren'Py 7.2.2.491
+Thu Mar 05 23:12:22 2020
