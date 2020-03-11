@@ -839,8 +839,14 @@ label apartment4:
     She can do whatever she wants, use whatever she wants to spend some time while she waits.
     """
 label apt4screen:
+    if boredom >= 75:
+        play music "ringtone.ogg"
+    if boredom <= 25:
+        play music "ringtone.ogg"
     call screen apartment4screen
 label tv:
+    if tv == True:
+        "She already watched television."
     if tv == False:
         """
         A normal and very old television that her parents gave to her some time ago.
@@ -852,7 +858,7 @@ label tv:
         menu:
             "Turn it on.":
                 $ tv = True
-                $ boredom += 10
+                $ boredom += 25
                 """
                 On every channel there are only boring programs.
 
@@ -864,11 +870,11 @@ label tv:
 
                 There certainly are more interesting things to do in the room.
                 """
-    if tv == True:
-        "She already watched television."
     jump apt4screen
 label bed:
-    if bed == False:
+    if sleep == True:
+        "She doesn't want to sleep anymore."
+    if sleep == False:
         """
         A noisy old bed, covered with her favourite duvet and blankets.
 
@@ -878,14 +884,16 @@ label bed:
         """
         menu:
             "Sleep.":
-                $ bed = True
-                $ boredom += 20
+                $ sleep = True
+                $ boredom += 15
                 """
                 As she lies down on the bed, covering herself up with the duvet and blanket, she fall asleep.
 
                 She doesn't know how long, but she sleeps for quite some time.
 
                 Her dreams are sweet and beautiful.
+
+                But as she wakes up, she still has nothing to do.
                 """
             "Don't sleep.":
                 """
@@ -893,10 +901,10 @@ label bed:
 
                 The phonecall she's waiting for is very important and not answering could have terrible consequences.
                 """
-    if bed == True:
-        "She doesn't want to sleep anymore."
     jump apt4screen
 label windowsol:
+    if windowlook == True:
+        "She has already watched outside the window."
     if windowlook == False:
         """
         A dusty window.
@@ -906,7 +914,7 @@ label windowsol:
         menu:
             "Watch outside.":
                 $ windowlook = True
-                $ boredom -= 5
+                $ boredom -= 15
                 """
                 Outside the window she sees the facades of other buildings.
 
@@ -918,19 +926,17 @@ label windowsol:
 
                 She prefers doing something else.
                 """
-    if windowlook == True:
-        "She has already watched outside the window."
     jump apt4screen
 label cig:
+    if smoke == True:
+        "She has already smoked."
     if smoke == False:
         "In the ashtray there is a cigarette she was smoking a while ago."
         menu:
             "Smoke it.":
                 $ smoke = True
-                $ boredom -= 10
+                $ boredom -= 15
                 """
-                In the ashtray there is a cigarette she was smoking a while ago.
-
                 She lights it, then takes a puff.
 
                 The smoke flows in the air, filling the room calmly.
@@ -939,10 +945,10 @@ label cig:
                 """
             "Don't smoke it.":
                 "She leaves it where it is, searching for something else to do."
-    if smoke == True:
-        "She has already smoked."
     jump apt4screen
 label mirror:
+    if mirror == True:
+        "She doesn't want to stare at herself again."
     if mirror == False:
         """
         A shiny mirror occupies a large portion of the wall.
@@ -954,14 +960,14 @@ label mirror:
         menu:
             "Stare just a little.":
                 $ mirror = True
-                $ boredom += 10
+                $ boredom += 15
                 "She really doesn't like to watch her body. Especially if there's no usefulness in doing so."
             "Don't stare.":
                 "In fact, she doesn't want to do it, so it's better not to."
-    if mirror == True:
-        "She doesn't want to stare at herself again."
     jump apt4screen
 label books:
+    if read == True:
+        "She has read enough."
     if read == False:
         """
         A small group of books.
@@ -973,7 +979,7 @@ label books:
         menu:
             "Read one.":
                 $ read = True
-                $ boredom -= 20
+                $ boredom -= 25
                 """
                 She takes one of the books from the shelf, after a careful choice.
 
@@ -983,22 +989,30 @@ label books:
                 """
             "Don't read.":
                 "Reading is not something she wants to do, for now at least."
-    if read == True:
-        "She has read enough."
     jump apt4screen
 label phone:
-    if boredom >= 75:
-        scene solphone
-        with fade
-        "aaa"
-    if boredom <= 25:
-        scene solphone
-        with fade
-        "bbb"
-    else:
+    if boredom >= 26 and boredom <= 74:
         """
         Like everything in the room, even the telephone is old.
 
         It's still not ringing. She wanders how much time she'll have to wait.
         """
-    jump apt4screen
+    if boredom >= 75:
+        ## Bored answer to phone
+        stop music
+        scene solphone
+        with fade
+        "aaa"
+
+        scene black
+        with slowfade
+        jump room
+    if boredom <= 25:
+        ## Not bored answer to phone
+        stop music
+        scene solphone
+        with fade
+        "bbb"
+        scene black
+        with slowfade
+        jump room
