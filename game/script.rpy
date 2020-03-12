@@ -846,8 +846,10 @@ label apt4screen:
     call screen apartment4screen
 label tv:
     if tv == True:
+        scene solitude
         "She already watched television."
     if tv == False:
+        scene solitude
         """
         A normal and very old television that her parents gave to her some time ago.
 
@@ -857,6 +859,8 @@ label tv:
         """
         menu:
             "Turn it on.":
+                scene soltv
+                with dissolve
                 $ tv = True
                 $ boredom += 25
                 """
@@ -873,8 +877,10 @@ label tv:
     jump apt4screen
 label bed:
     if sleep == True:
+        scene solitude
         "She doesn't want to sleep anymore."
     if sleep == False:
+        scene solitude
         """
         A noisy old bed, covered with her favourite duvet and blankets.
 
@@ -884,6 +890,8 @@ label bed:
         """
         menu:
             "Sleep.":
+                scene solbed
+                with dissolve
                 $ sleep = True
                 $ boredom += 15
                 """
@@ -904,8 +912,10 @@ label bed:
     jump apt4screen
 label windowsol:
     if windowlook == True:
+        scene solitude
         "She has already watched outside the window."
     if windowlook == False:
+        scene solitude
         """
         A dusty window.
 
@@ -913,6 +923,8 @@ label windowsol:
         """
         menu:
             "Watch outside.":
+                scene solwindow
+                with dissolve
                 $ windowlook = True
                 $ boredom -= 15
                 """
@@ -929,11 +941,15 @@ label windowsol:
     jump apt4screen
 label cig:
     if smoke == True:
+        scene solitude
         "She has already smoked."
     if smoke == False:
+        scene solitude
         "In the ashtray there is a cigarette she was smoking a while ago."
         menu:
             "Smoke it.":
+                scene solsmoke
+                with dissolve
                 $ smoke = True
                 $ boredom -= 15
                 """
@@ -948,8 +964,10 @@ label cig:
     jump apt4screen
 label mirror:
     if mirror == True:
+        scene solitude
         "She doesn't want to stare at herself again."
     if mirror == False:
+        scene solitude
         """
         A shiny mirror occupies a large portion of the wall.
 
@@ -959,6 +977,8 @@ label mirror:
         """
         menu:
             "Stare just a little.":
+                scene solmirror
+                with dissolve
                 $ mirror = True
                 $ boredom += 15
                 "She really doesn't like to watch her body. Especially if there's no usefulness in doing so."
@@ -967,8 +987,10 @@ label mirror:
     jump apt4screen
 label books:
     if read == True:
+        scene solitude
         "She has read enough."
     if read == False:
+        scene solitude
         """
         A small group of books.
 
@@ -978,6 +1000,8 @@ label books:
         """
         menu:
             "Read one.":
+                scene solbook
+                with dissolve
                 $ read = True
                 $ boredom -= 25
                 """
@@ -992,11 +1016,15 @@ label books:
     jump apt4screen
 label phone:
     if boredom >= 26 and boredom <= 74:
+        scene solitude
+        scene solphonewait
+        with dissolve
         """
         Like everything in the room, even the telephone is old.
 
         It's still not ringing. She wanders how much time she'll have to wait.
         """
+        jump apt4screen
     if boredom >= 75:
         ## Bored answer to phone
         stop music
