@@ -1,16 +1,17 @@
 define slowfade = Fade(1.0, 0, 3.0)
 define slowerfade = Fade (3.0, 0, 3.0)
-define slowdissolve = Dissolve(1.0)
+define slowdissolve = Dissolve(2.0)
 define fadehold = Fade(3.0, 1.0, 3.0)
 define w = Character("Wife")
 define h = Character("Husband")
 define s = Character("Student")
 define g = Character("Laura")
-define d = Character("Game Director")
+define gd = Character("Game Director")
 define t = Character("Tech Lead")
 define a = Character("Lead Artist")
 define i = Character("Interviewer")
-define f = Character("Old Friend")
+define l = Character("Lonely Girl")
+define j = Character("Julie")
 
 init:
     $ timer_range = 0
@@ -20,6 +21,11 @@ label start:
     stop music fadeout(3.0)
     scene black
     with slowerfade
+
+    $ badhim = False
+    $ goodhim = False
+    $ badher = False
+    $ goodher = False
     """
     You're in your room.
 
@@ -46,8 +52,11 @@ label room:
     call screen roomscreen
 
 label apartments:
+    scene roomhover
+    $ renpy.pause(0.5)
     scene apartments
     with slowdissolve
+    $ renpy.pause(1)
     call screen apartmentsscreen
 ##### ARGUMENT SCENE START ############################################################################################################################
 label apartment1:
@@ -229,9 +238,13 @@ label apt1_4her:
         w "Then why are we even here? What are we still arguing about? Justo go away, the door is right there!"
         scene arguenegend
         with slowdissolve
+        $ badher = True
         "As she says that, he looks at her face for a moment, then turn around and reaches the door, leaving without saying anything."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 2:
         h "Listen, I'm tired of this, I'm tired of arguing over a stupid fucking book."
@@ -243,9 +256,13 @@ label apt1_4her:
         h "Yes, don't worry. It's good."
         scene arguenegend
         with slowdissolve
+        $ badher = True
         "Yet, he doesn't say anything more than that. And her, too, finds it difficult to say anything at all."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 4:
         h "Listen, why don't we just stop? It's useless. I'm sorry for the book and for being so careless, really."
@@ -255,9 +272,13 @@ label apt1_4her:
         h "Oh, I'm so sorry about that...I really never noticed it."
         scene argueposend
         with slowdissolve
+        $ goodher = True
         "He hugs her, feeling a deep sadness that seems to flow after years of containment."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 6:
         w "I know you try your best. And it's wonderful, I'm just telling you that there is this problem."
@@ -266,9 +287,13 @@ label apt1_4her:
         h "Really?"
         scene argueposend
         with slowdissolve
+        $ goodher = True
         w "Yes, of course. I won't leave you alone."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
 label no_ansher:
     h "If you won't even answer me than why are we here talking? Sorry, but I have better things to do."
@@ -276,9 +301,13 @@ label no_ansher:
     h "I'm tired of waiting. I'll see you later."
     scene arguenegend
     with slowdissolve
+    $ badher = True
     "He exits the room, leaving her alone."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 
 #### ARGUE HIM ########
@@ -290,7 +319,7 @@ label himstart:
     """
     He starts to think how stupid this situation is. How absurd it is.
 
-    But till, he can't do anything about it, as frustrating as it may seem.
+    But still, he can't do anything about it, as frustrating as it may seem.
     """
     w "You're careless, and don't pay any attention."
     jump arguestarthim
@@ -410,7 +439,7 @@ label apt1_neutralhim:
             w "Fine, I will!"
             jump apt1_4him
 
-label apt1_bad2:
+label apt1_bad2him:
     $ time = 5
     $ timer_range = 5
     $ timer_jump = 'no_anshim'
@@ -440,20 +469,28 @@ label apt1_4him:
         h "Fine, then you know what? I'm fucking leaving. I'm done with all this, done with you."
         scene arguenegend
         with slowfade
+        $ badhim = True
         "Moved by anger, he punches the nearest wall, leaving his fist's trace behind."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 2:
         h "Ok, fine, I get it. You don't want me here, right? Absolutely fine, really."
         w "What?"
         scene arguenegend
         with slowfade
+        $ badhim = True
         h "It's just clear. Very clear. I'll leave you your space, no problem. I'll go take a walk."
         w "Yeah...maybe that will calm us both."
         h "Yeah, maybe."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 4:
         h "...I'm sorry about all this. I'm sorry about the book, about the argument, about everything."
@@ -463,9 +500,13 @@ label apt1_4him:
         h "So...what now?"
         scene argueposend
         with slowfade
+        $ goodhim = True
         "She gently hugs him, softly crying of happiness."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if argument == 6:
         h "Yeah, I understand."
@@ -473,9 +514,13 @@ label apt1_4him:
         h "Really?"
         scene argueposend
         with slowfade
+        $ goodhim = True
         w "Yes, of course. I won't leave you alone."
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
 label no_anshim:
     w "So, you're pretending to be mute, now?"
@@ -483,10 +528,14 @@ label no_anshim:
     w "Yeah, right, whatever. I'm leaving, by the way."
     scene arguenegend
     with slowfade
+    $ badhim = True
     h "You're leaving?"
     w "You don't want to talk and I don't want to talk with a wall, so I'm leaving."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 
 ##### PHONECALL SCENE START ############################################################################################################################
@@ -553,6 +602,8 @@ label apt2_moreemb2:
             Well, but everything what, exactly?
 
             Guess I'll figure it out, somehow.
+
+            Well, time to call her, then...
             """
             jump apt2_2
         "I miss you, enormously.":
@@ -561,11 +612,14 @@ label apt2_moreemb2:
             For all this time, these days, I thought about you...
 
             Yes, that seems good.
+
+            Well, time to call her, then...
             """
             jump apt2_2
 
 label apt2_2:
     show phonecalldef
+    with dissolve
     if emb == 5:
         s """
         Hi, uhm....I just wanted to know if you'd like to love me.
@@ -614,6 +668,9 @@ label apt2_negative:
             g "Ok, bye then...for now."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 label apt2_neutral:
     g "You think?"
@@ -642,6 +699,9 @@ label apt2_neutral:
             "The call ends. Without any goodbye, without any smile."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 label apt2_good:
     g "To repair this situation...?"
@@ -674,6 +734,9 @@ label apt2_good:
             "She hangs up, leaving the young student by himself. Silent and lonely."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 
 label no_ans:
@@ -684,6 +747,9 @@ label no_ans:
     "She instantly hangs up. The student only had the time of hearing the soft beginning of her crying."
     scene black
     with slowfade
+    scene room
+    with fade
+    $ renpy.pause(1)
     jump room
 
 ##### OVERWORK SCENE START ############################################################################################################################
@@ -705,29 +771,29 @@ label apt3_q1:
     scene overworkingq1
     with slowdissolve
     t "I'm sorry to disturb you, but we have a problem..."
-    d "A problem? What kind of problem?"
+    gd "A problem? What kind of problem?"
     t "One of the programmers has made some mistakes in the code, but he realized it just now."
-    d "And what kind of mistakes?"
+    gd "And what kind of mistakes?"
     t "Well, we've found some, but not all of them, yet. They don't seem to be dungerous, but they sure are a lot of pain."
-    d "And he pushed them without checking? What is he, an idiot?"
+    gd "And he pushed them without checking? What is he, an idiot?"
     t "I already told him that."
-    d "That's just wonderful. One month until the deadline and some imbecille makes mistakes in the code."
+    gd "That's just wonderful. One month until the deadline and some imbecille makes mistakes in the code."
     t "Well, the fact is that we have two options, now..."
     menu:
         "We can fix them, but it'll take time.":
             $ ease -= 25
-            d "We can't deliver a bugged game, you know that as well."
+            gd "We can't deliver a bugged game, you know that as well."
             t "Of course, I'll tell the producer we'll have to schedule a new date for the release."
-            d "It won't happen."
+            gd "It won't happen."
             t "What do you mean?"
-            d "We'll never gain more days. We'll have to manage the time we have and fix everything."
+            gd "We'll never gain more days. We'll have to manage the time we have and fix everything."
             t "That sure is troublesome..."
-            d "Ain't it?"
+            gd "Ain't it?"
         "We can leave them be and continue to push until the realease.":
             $ ease += 25
-            d "We already are in a bad situation. Adding the fix of a similar problem would only make everything worst."
+            gd "We already are in a bad situation. Adding the fix of a similar problem would only make everything worst."
             t "Yes, I understand...but wouldn't we gain more time to finish the project?"
-            d "Of course not. The world won't stop only because we have to fix coding mistakes."
+            gd "Of course not. The world won't stop only because we have to fix coding mistakes."
             t "Hm, that makes sense."
     jump apartment3_2
 label apartment3_2:
@@ -739,38 +805,38 @@ label apartment3_2:
     Surprisingly, the Lead's face is at ease. Or at least more than usual.
     """
     a "The producer has asked for a reunion, planned for next week."
-    d "And?"
+    gd "And?"
     a "He asked for all the departments to be present, but everyone's loaded with work. None of us can go."
-    d "Of course, that's a problem."
+    gd "Of course, that's a problem."
     a "So...what should we do?"
     menu:
         "There'll be only the leads, it's the most logic thing to do.":
             $ ease += 25
             a "Are you sure? Won't it be a problem?"
-            d """
+            gd """
             We'll save some time for the development and it's not that necessary to have everyone there.
 
             That would only be confusing.
             """
             a "Understood. Fine, I'll tell the others, then."
-            d "Good."
+            gd "Good."
         "If he asked for everyone then everyone will go.":
             $ ease -= 25
             a "Is it really a good idea?"
-            d """
+            gd """
             Well, as I said, if he has asked for everyone, then everyone has to go.
 
             I'd like it to be a matter of choice, but it isn't.
             """
             a "Yeah, that's true...I'll go tell all the departments, then."
-            d "Fine, good work."
+            gd "Fine, good work."
     jump apartment3_3
 label apartment3_3:
     if ease ==  100:
         scene overworkingnegend
         with slowfade
         i "The story of this project seems to be interesting, could you tell me more about it?"
-        d """
+        gd """
         Well, all I can say is that we decided to fully concentrate on finishing it. At least the base.
 
         We never thought it would end up like that.
@@ -781,6 +847,9 @@ label apartment3_3:
         """
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if ease == 50:
         scene overworkingposend
@@ -796,6 +865,9 @@ label apartment3_3:
         """
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if ease == 0:
         scene overworkingneutend
@@ -811,6 +883,9 @@ label apartment3_3:
         """
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
 
 ##### SOLITUDE SCENE START ############################################################################################################################
@@ -822,8 +897,9 @@ label apartment4:
     $ smoke= False
     $ tv = False
     $ windowlook = False
+    $ light = False
     $ boredom = 50
-    scene solitude
+    scene solitude00
     with slowfade
     """
     In the fourth and last apartment lives a young girl.
@@ -838,6 +914,14 @@ label apartment4:
 
     She can do whatever she wants, use whatever she wants to spend some time while she waits.
     """
+    jump apt4opening
+
+label apt4opening:
+    scene solitude
+    with dissolve
+    $ renpy.pause(0.1)
+    jump apt4screen
+
 label apt4screen:
     if boredom >= 75:
         play music "ringtone.ogg"
@@ -874,7 +958,7 @@ label tv:
 
                 There certainly are more interesting things to do in the room.
                 """
-    jump apt4screen
+    jump apt4opening
 label bed:
     if sleep == True:
         scene solitude
@@ -909,7 +993,7 @@ label bed:
 
                 The phonecall she's waiting for is very important and not answering could have terrible consequences.
                 """
-    jump apt4screen
+    jump apt4opening
 label windowsol:
     if windowlook == True:
         scene solitude
@@ -938,7 +1022,7 @@ label windowsol:
 
                 She prefers doing something else.
                 """
-    jump apt4screen
+    jump apt4opening
 label cig:
     if smoke == True:
         scene solitude
@@ -951,7 +1035,7 @@ label cig:
                 scene solsmoke
                 with dissolve
                 $ smoke = True
-                $ boredom -= 15
+                $ boredom -= 10
                 """
                 She lights it, then takes a puff.
 
@@ -961,7 +1045,7 @@ label cig:
                 """
             "Don't smoke it.":
                 "She leaves it where it is, searching for something else to do."
-    jump apt4screen
+    jump apt4opening
 label mirror:
     if mirror == True:
         scene solitude
@@ -980,11 +1064,11 @@ label mirror:
                 scene solmirror
                 with dissolve
                 $ mirror = True
-                $ boredom += 15
+                $ boredom += 20
                 "She really doesn't like to watch her body. Especially if there's no usefulness in doing so."
             "Don't stare.":
                 "In fact, she doesn't want to do it, so it's better not to."
-    jump apt4screen
+    jump apt4opening
 label books:
     if read == True:
         scene solitude
@@ -1003,7 +1087,7 @@ label books:
                 scene solbook
                 with dissolve
                 $ read = True
-                $ boredom -= 25
+                $ boredom -= 20
                 """
                 She takes one of the books from the shelf, after a careful choice.
 
@@ -1011,9 +1095,36 @@ label books:
 
                 She opens it, searching for a specific poem.
                 """
+                show solpoetry
+                with slowdissolve
+                $ renpy.pause(14,hard=True)
+                hide solpoetry
+                with slowdissolve
+                l "I really love this poem."
             "Don't read.":
                 "Reading is not something she wants to do, for now at least."
-    jump apt4screen
+    jump apt4opening
+label light:
+    if light == True:
+        l "No more light for today."
+    if light == False:
+        $ light = True
+        """
+        There is only one chandelier in the room.
+
+        Her father has fixed the light bulb for her.
+
+        That happened months ago, though, and she hasn't turned the light on for that whole time.
+        """
+        menu:
+            "Turn the light on.":
+                scene sollighton
+                with dissolve
+                l "Oh God, no!"
+                "The light is too strong for her,so she turns it off immediately."
+            "Let it off.":
+                l "Better leave it as it is, or the PTSD will hit me again."
+    jump apt4opening
 label phone:
     if boredom >= 26 and boredom <= 74:
         scene solitude
@@ -1022,25 +1133,158 @@ label phone:
         """
         Like everything in the room, even the telephone is old.
 
-        It's still not ringing. She wanders how much time she'll have to wait.
+        It's still not ringing.
+
+        She wanders how much time she'll have to wait.
         """
-        jump apt4screen
+        jump apt4opening
+
     if boredom >= 75:
-        ## Bored answer to phone
         stop music
         scene solphone
         with fade
-        "aaa"
+        "She answers the phone, knowing already who's calling her, finally."
+        l "Hi Julie...how are you?"
+        j "Hi...how are you?"
+        l "Very bored, and you?"
+        j "Ok, I guess."
+        l "Well..."
+        j "Listen, I thought about it quite a lot..."
+        l "And?"
+        j """
+        I really can't. I'm sorry, but...I just can't, it's too much.
 
+        I know it's important, I know we would be together, but...I can't abandon everything and live with you...
+        """
+        menu:
+            "What do you mean it's too much?":
+                j "It's just too much, ok? What do I have to tell you? What do you want me to tell you?"
+                l "After everything I've done..."
+            "Oh, I understand...":
+                j "I'm glad you do..."
+        j """
+        Look, I...I'm really sorry about that, ok?
+
+        But I really can't do that. I'm not ready.
+
+        At all.
+
+        So...
+
+        I think it's better if we just...
+        """
+        menu:
+            "Are you leaving me?":
+                j "I guess I am..."
+            "...":
+                j "I'm sorry..."
+        j """
+        Well, I...
+
+        Uhm...
+
+        I have to go, now...sorry. Bye
+        """
+        scene solbadend
+        with fade
+        """
+        She hangs up without saying a word. Not even a single one.
+
+        The lonely girl stands still, without feeling anything.
+
+        She's still alone, still a little sad and not ready at all for this situation.
+
+        And the boredom doesn't make things easier.
+
+        But even though it's difficult and hurts, there's still the future.
+
+        Even though she can't control everything and can't change everything, there's still some hope in a brighter future.
+        """
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room
     if boredom <= 25:
-        ## Not bored answer to phone
         stop music
         scene solphone
         with fade
-        "bbb"
+        l "Hi, Julie! How are you?"
+        j "Hi...well, I'm fine, thanks. What about you?"
+        l "I'm fine too, just keeping busy, you know!"
+        j "Yeah, that's good..."
+        l "Soo..."
+        j "Yeah, about that...uhm, I think I can't, sorry."
+        l "You...can't?"
+        j """
+        Yes, I really can't live with you...
+
+        I would like to, really, but I just can't.
+
+        I should abandon everything I have now, do you understand?
+
+        It's not simple at all.
+
+        Even though I love you...it really isn't simple.
+        """
+        menu:
+            "It's a joke, right?":
+                j "I'm afraid it's not..."
+            "And why haven't you told me before...?":
+                j "I was afraid, and...well, I still had to think about it."
+        l "So...what now?"
+        j """
+        I...
+
+        I think we can no longer...
+
+        Stay together...
+        """
+        l "Oh...yeah..."
+        j "I'm sorry..."
+        l "Yes, of course you are."
+        j """
+        Indeed...listen, I...
+
+        I have some things to do, now, so...
+        """
+        l """
+        That's good.
+
+        Don't worry.
+
+        It's ok.
+
+        Bye.
+        """
+        j "Bye..."
+        scene solgoodend
+        with fade
+        """
+        She hangs up.
+
+        There's emptiness, now, all around the lonely girl..
+
+        The idea of being alone again, for god knows how longer, hurts her.
+
+        The love she felt is already disappearing.
+        """
+        show solpoetry
+        with slowdissolve
+        $ renpy.pause(1)
+        """
+        The words of her favourite poem come to her mind, gaining a new meaning.
+
+        All those feelings, flowing silently into her heart...slowly becoming memories.
+
+        But still, she thinks, there's some kind of hope.
+
+        Hope for the future, for the decisions she still can make.
+        """
         scene black
         with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
         jump room

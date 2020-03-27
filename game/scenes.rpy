@@ -30,10 +30,11 @@ screen apartment4screen:
         ground "solitude.png"
         hotspot(815, 622, 279, 293) action Jump ("tv")
         hotspot(0, 540, 793, 537) action Jump ("bed")
-        hotspot(2, 176, 238, 364) action Jump ("windowsol")
+        hotspot(0, 154, 244, 387) action Jump ("windowsol")
         hotspot(747, 311, 104, 152) action Jump ("cig")
-        hotspot(1174, 216, 335, 564) action Jump ("mirror")
+        hotspot(1137, 191, 412, 745) action Jump ("mirror")
         hotspot(258, 178, 273, 223) action Jump ("books")
+        hotspot(791, 0, 197, 253) action Jump ("light")
         hotspot(1501, 742, 238, 125) action Jump ("phone")
 
 screen apartment3screen:
