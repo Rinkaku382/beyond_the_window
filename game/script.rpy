@@ -12,7 +12,14 @@ define a = Character("Lead Artist")
 define i = Character("Interviewer")
 define l = Character("Lonely Girl")
 define j = Character("Julie")
-
+define m = Character("Mom")
+define d = Character("Dad")
+define tl = Character("Tired Lodger")
+define lf = Character("Lodger's Fiancé")
+define sf = Character ("Sleepy Friend")
+define ym = Character ("Young Mother")
+init:
+    image movie = Movie(size=(1920, 1080), xpos=0, ypos=0, xanchor=0, yanchor=0)
 init:
     $ timer_range = 0
     $ timer_jump = 0
@@ -26,6 +33,20 @@ label start:
     $ goodhim = False
     $ badher = False
     $ goodher = False
+    $ devgood = False
+    $ devneut = False
+    $ devbad = False
+    $ phonegood = False
+    $ phonebad = False
+    $ famepilogue = False
+    $ lod1epilogue = False
+    $ meetepilogue = False
+    $ lod2epilogue = False
+    $ lovepilogue = False
+    $ separepilogue = False
+    $ solend = False
+    $ epilogues = 0
+    $ ending = 0
     """
     You're in your room.
 
@@ -49,7 +70,13 @@ label start:
     """
 
 label room:
-    call screen roomscreen
+    if ending == 1:
+        "Maybe it could be worth checking the apartments already visited, too."
+        call screen roomscreen
+    if epilogues == 3:
+        jump gamending
+    else:
+        call screen roomscreen
 
 label apartments:
     scene roomhover
@@ -58,33 +85,430 @@ label apartments:
     with slowdissolve
     $ renpy.pause(1)
     call screen apartmentsscreen
+label apartmentlon:
+    call screen apartmentsscreen
 ##### ARGUMENT SCENE START ############################################################################################################################
 label apartment1:
-    scene arguebase
-    with slowfade
-    $ argument = 3
-    """
-    In this house live two people: a woman and her husband.
+    if famepilogue == True:
+        "The family is now eating happily..."
+        jump apartmentlon
+    if lod1epilogue == True:
+        "The new lodgers are watching the dusk while drinking tea, silently."
+        jump apartmentlon
+    if goodher == True or goodhim == True and solend == False:
+        """
+        There's no one here, now.
 
-    A normal conversation in the living room, during morning, leads to unexpected truths.
-    """
-    w "So, have you finished that book we bought last month?"
-    h "Which book?"
-    w "The one with the red cover, don't you remember it?"
-    h "Oh, that one! Yes, I do remember."
-    w "...and have you finished it, then?"
-    h "Guess I haven't. I think I forgot about it."
-    w "You forgot?"
-    h "Yes, I did. Why you ask?"
-    w "I told you when we bought it that I wanted to read it, decided that I would have after you and now you forgot about it."
-    h "But what's wrong with it? It's a book, not the end of the world."
-    """
-    Relationships between husbands and wives are indeed difficult.
+        Maybe it's worth checking out the other apartments?
+        """
+        jump apartmentlon
+    if goodher == True or goodhim == True and solend == True and famepilogue == False and lod1epilogue == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("dinnertitle.mkv")
+        scene dinner
+        with slowfade
+        "This is the dinner epilogue"
+        """
+        A calm evening.
 
-    Every position taken means having the other as opponent.
+        A family reunion.
 
-    But, maybe, sometimes choosing between one or the other could lead to a repairment of the situation...
-    """
+        Silent feelings that fill the apartment's atmosphere.
+        """
+        m "So, how are you feeling, sweetie?"
+        l "I still don't really know..."
+        m "You know...love affairs are complicated. Very complicated."
+        d """
+        Yes, indeed.
+
+        What is important, though, is to not fall in hatred's trap.
+
+        One must always love, even if he's not loved.
+        """
+        menu:
+            "I still have...hope.":
+                m "Hope is the basis for love."
+                d """
+                Yes, to have hope is the same thing as loving life.
+
+                You know, dear...living is difficult.
+
+                Very difficult.
+
+                But since you have hope you can endure everything.
+
+                You can endure pain.
+
+                You can endure grief.
+
+                You can endure solitude.
+
+                And to endure all those things means that you can bravely take on life.
+
+                Without any fear, that is.
+                """
+                """
+                The young lonely girl smiles at her parents.
+
+                In her memory the face of who is now her ex-girlfriend still shines.
+
+                But that shining is becoming more and more pale.
+
+                Yet, she does not feel any hate for her.
+
+                She is sad, that's for sure.
+
+                She still feels more lonely than before.
+
+                But as long as she has that bright and pure hope, she feels calm.
+
+                And even if the world is harsh and life isn't beautiful or pleasing as she wouls like it to be...
+
+                She still believes that the future could be better.
+                """
+            "But how can one still love?":
+                d """
+                Each one of us is lonely.
+
+                We are lonely because we're singular individuals.
+
+                And even when we live with someone...
+
+                When we love somaone and share our life with him or her...
+
+                We still are singular individuals and so we're still alone.
+
+                Once someone understands that, he can understand that love is mutable.
+                """
+                m """
+                And since it's mutable, we only have to accept that fact.
+
+                Understanding and accepting means that once love seems to be faded between two or more people,
+
+                It really isn't, as love and hope are the basis of human connection.
+
+                She left you, that's true.
+
+                But you two have been connected for some time and you still are as human beings.
+
+                As old friends and lovers.
+
+                This unity, when you think about it, is strong enough to eliminate all the hate you could feel.ù
+
+                And even if you now feel lonely physically and sentimentally...
+
+                That doesn't mean you'll meet someone that will once again erase these feelings.
+
+                You have to put hope in the future.
+                """
+                """
+                'To put hope in the future...'
+
+                These words reverberates in the lonely girl's mind.
+
+                Maybe they'll stay in her head forever, as long as she truly hopes things will get better.
+
+                But surely as long as she tries her best to fulfill that hope.
+
+                But hoping means to act, and not to lie in wait of better opportunities.
+                """
+        $ famepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+
+    if badher == True or badhim == True and solend == True and famepilogue == False and lod1epilogue == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("lodg1title.mkv")
+        scene lodger1
+        with slowfade
+        """
+        Once someone abandons a house, someone else is instantly ready to occupy it.
+
+        An apartment always keeps the leftovers of its previous owners.
+
+        It hides them, making them invisible.
+
+        Pale memories of who has been there before.
+
+        But somehow ready to be catched by the eyes of those who know how to observe.
+
+        Those who are able to see beyond the quiet state of things.
+        """
+        tl "So, you're the daughter of the previous owners, right?"
+        l "Yes. They asked me to take care of the house and find a new lodger..."
+        tl "Oh, I see."
+        "An awkward, embarassing silence."
+        tl "It'a nice to meet you, really."
+        l "Oh, for me too, yes."
+        tl "Well anyway, I wanted to ask you something."
+        l "Yes?"
+        tl "Your parents left here some things, right?"
+        l "Well, yes."
+        tl """
+        Could you tell me why?
+
+        I mean, usually people take everything away when tey move out.
+
+        But your parents left many things.
+        """
+        l "Oh, it's some sort of habitude of them."
+        tl "Habitude...?"
+        l """
+        Yes, they leave things that could be useful for others.
+
+        They don't realize that sometimes it would be better if they...didn't.
+        """
+        tl "I think it's gentle."
+        l "Really?"
+        tl """
+        Yes, really.
+
+        It's not that important if what they leave is useful or not.
+
+        It's gentle because it means they care about others.
+        """
+        menu:
+            "What if you'll have to toss them?":
+                tl """
+                That would be unfortunate, but you see...
+
+                Truth is that I needed exactly what they left.
+
+                Let's say that I had to leave some things in the  place where I used to live.
+
+                So now I have almost nothing.
+
+                And it's the same for the person I'll start living with in the next days.
+
+                So what they left will be very useful to us.
+                """
+                l "Oh, that sounds...mysterious. And very sad, too."
+                tl """
+                There's nothing so mysterious about it, really...
+
+                It's what happens when you hurt someone, you know?
+
+                You break the promise made with that person and everything there was just...disappears.
+
+                And you start falling, trying to build something new out of the mistake you made.
+
+                Of course feelings have been hurt.
+
+                Of course there are broken hurts and tears, and screams, and...
+
+                Oh, well, I'm sorry...
+
+                I know that's none of your business, but...every time I start talking I can't stop.
+                """
+                menu:
+                    "No, please...go on.":
+                        tl """
+                        Oh...
+
+                        Well, now that you said it I realize it's not so simple to continue, but...
+
+                        Let's start by that: betraying someone is painful.
+
+                        Painful for both parts, that is.
+
+                        But even if it is, there's still some kind of...love?
+
+                        I mean, you of course do it for love.
+
+                        There may be physical implications, desires, but for me...there was only love.
+
+                        And it's that love what I decided to follow.
+
+                        So here I am now, a tired poet with a broken history and a 'new beginning'.
+                        """
+                        l "That must be painful..."
+                        tl """
+                        Yes, it is.
+
+                        But as long as love is still in my life...I feel better.
+                        """
+                        """
+                        Feeling better as long as there is love...
+
+                        Thinking about it, the lonely girl realizes that love is still there for her too.
+
+                        Love for her family.
+
+                        Love for herself.
+
+                        Love for life itself.
+
+                        Could it be that this love will make her feel better too?
+                        """
+                    "Yes, that's none of my business.":
+                        tl """
+                        Yeah, right.
+
+                        Well, it's nice that you came here to say hi, anyway.
+
+                        I already feel welcomed.
+                        """
+                        l "Very good. I guess I must leave, now."
+                        tl "That's fine. Bye, then and...thank you for listening, anyway."
+                        $ lod1epilogue = True
+                        $ epilogues += 1
+                        scene black
+                        with slowfade
+                        scene room
+                        with fade
+                        $ renpy.pause(1)
+                        jump room
+            "It's kind of you.":
+                tl """
+                Well, I think that kindness is the least I can be.
+
+                I mean...we live in an unkind environment, right?
+
+                And what good can make being enraged because of items I don't want?
+
+                Or because other people decide to be gentle and think about what could be useful and then leave it?
+
+                Your parents decided to separate themselves of something in what I can imagine isn't a simple moment.
+
+                Moving out is never simple, for anyone.
+
+                And, to be sincere, they just saved me, as I don't have at all these things!
+
+                So, if it wasn't for them, me and the person I'll live with would have passed a not so great moment in a shop, searching for them!
+                """
+                l "That really make me happy, then!"
+                tl """
+                Yeah, me too.
+
+                I think yours is a very gentle family.
+
+                I would like to meet your parents, one day, but I think that you got all their kindness.
+
+                You came here to say hi, help me understand some things about the apartment and treated me very gently.
+
+                That's something...rare.
+
+                I think that when people have choices, they can be very mean.
+
+                But not you.
+
+                And that tells a lot.
+                """
+        """
+        The apartment's door suddenly opens.
+        """
+        scene lodger1_2
+        with dissolve
+        """
+        A young girls enters and watches us with a large, surprised smile.
+        """
+        tl "Oh, you're here finally!"
+        lf """
+        Sorry, I'm late! There was a lot of traffic...
+
+        And you are?
+        """
+        l "The previous owners' daughter, nice to meet you."
+        tl """
+        She lives downstairs, so she came here to say hi.
+
+        Oh, I made some tea for you too, take it.
+        """
+        lf "Thanks a lot!"
+        scene lodger1_3
+        with dissolve
+        lf "Knowing him, I guess he already thanked you at least ten times for coming here, right?"
+        tl """
+        Hey, that's not true! I tried to restrain myself...
+
+        This time.
+        """
+        l "Uhmm, don't worry, he was very gentle."
+        lf "That's good, he always thanks and excuses himself too much!"
+        tl "I think it wasn't necessary to tell her all that..."
+        lf "Oh, you're right, I'm sorry!"
+        """
+        The lonely girl finishes her tea and smiles at both of them.
+
+        The silence surrounding them all is starting to be a little embarassing.
+        """
+        lf "Listen, why don't you stay with us for dinner?"
+        l "Oh no, don't worry, please! I have to go now, anyway."
+        tl "No problem, maybe another day, right?"
+        l "Yes, that would be splendid!"
+        lf "Well, then, you can come here when you want."
+        l "Thanks, you're both very kind. It was very nice meeting you."
+        scene black
+        with slowfade
+        """
+        And so she says hi and leaves.
+
+        As she goes down the stairs, she starts thinking about how beautiful that couple was.
+
+        And the words of a poem she listened long time ago flows through her mind.
+
+        It sounded like...
+
+        'Love is eternal, here rests for a time.'
+
+        Perhaps the dead lie happily in the well tended plots, or perhaps they'd prefer the forgotten overgrown corners.
+
+        Perhaps they prefer their names obliterated by time and the weather.
+
+        Perhaps not.'
+
+        Thinking about it...
+
+        She instantly understands that, as the poem's author, she should leave.
+        """
+        $ lod1epilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+
+    if goodher == False and goodhim == False and badher == False and badhim == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("arguetitle.mkv")
+        scene arguebase
+        with slowfade
+        $ argument = 3
+        """
+        In this house live two people: a woman and her husband.
+
+        A normal conversation in the living room, during morning, leads to unexpected truths.
+        """
+        w "So, have you finished that book we bought last month?"
+        h "Which book?"
+        w "The one with the red cover, don't you remember it?"
+        h "Oh, that one! Yes, I do remember."
+        w "...and have you finished it, then?"
+        h "Guess I haven't. I think I forgot about it."
+        w "You forgot?"
+        h "Yes, I did. Why you ask?"
+        w "I told you when we bought it that I wanted to read it, decided that I would have after you and now you forgot about it."
+        h "But what's wrong with it? It's a book, not the end of the world."
+        """
+        Relationships between husbands and wives are indeed difficult.
+
+        Every position taken means having the other as opponent.
+
+        But, maybe, sometimes choosing between one or the other could lead to a repairment of the situation...
+        """
 
 label choose:
     call screen apartment1screen
@@ -99,8 +523,8 @@ label herstart:
     jump arguestarther
 
 label arguestarther:
-    $ time = 15
-    $ timer_range = 15
+    $ time = 7
+    $ timer_range = 7
     $ timer_jump = 'no_ansher'
     show screen countdown
 
@@ -131,8 +555,8 @@ label apt1_2her:
         jump apt1_bad1her
 
 label apt1_good1her:
-    $ time = 20
-    $ timer_range = 20
+    $ time = 7
+    $ timer_range = 7
     $ timer_jump = 'no_ansher'
     show screen countdown
     menu:
@@ -148,8 +572,8 @@ label apt1_good1her:
             jump apt1_3her
 
 label apt1_bad1her:
-    $ time = 10
-    $ timer_range = 10
+    $ time = 6
+    $ timer_range = 6
     $ timer_jump = 'no_ansher'
     show screen countdown
     menu:
@@ -179,8 +603,8 @@ label apt1_3her:
         jump apt1_bad2her
 
 label apt1_good2her:
-    $ time = 25
-    $ timer_range = 25
+    $ time = 8
+    $ timer_range = 8
     $ timer_jump = 'no_ansher'
     show screen countdown
     menu:
@@ -196,8 +620,8 @@ label apt1_good2her:
             jump apt1_4her
 
 label apt1_neutralher:
-    $ time = 15
-    $ timer_range = 15
+    $ time = 6
+    $ timer_range = 6
     $ timer_jump = 'no_ansher'
     show screen countdown
     menu:
@@ -213,8 +637,8 @@ label apt1_neutralher:
             jump apt1_4her
 
 label apt1_bad2her:
-    $ time = 5
-    $ timer_range = 5
+    $ time = 4
+    $ timer_range = 4
     $ timer_jump = 'no_ansher'
     show screen countdown
     menu:
@@ -239,6 +663,7 @@ label apt1_4her:
         scene arguenegend
         with slowdissolve
         $ badher = True
+        $ ending += 1
         "As she says that, he looks at her face for a moment, then turn around and reaches the door, leaving without saying anything."
         scene black
         with slowfade
@@ -257,6 +682,7 @@ label apt1_4her:
         scene arguenegend
         with slowdissolve
         $ badher = True
+        $ ending += 1
         "Yet, he doesn't say anything more than that. And her, too, finds it difficult to say anything at all."
         scene black
         with slowfade
@@ -273,6 +699,7 @@ label apt1_4her:
         scene argueposend
         with slowdissolve
         $ goodher = True
+        $ ending += 1
         "He hugs her, feeling a deep sadness that seems to flow after years of containment."
         scene black
         with slowfade
@@ -288,6 +715,7 @@ label apt1_4her:
         scene argueposend
         with slowdissolve
         $ goodher = True
+        $ ending += 1
         w "Yes, of course. I won't leave you alone."
         scene black
         with slowfade
@@ -302,6 +730,7 @@ label no_ansher:
     scene arguenegend
     with slowdissolve
     $ badher = True
+    $ ending += 1
     "He exits the room, leaving her alone."
     scene black
     with slowfade
@@ -325,8 +754,8 @@ label himstart:
     jump arguestarthim
 
 label arguestarthim:
-    $ time = 15
-    $ timer_range = 15
+    $ time = 7
+    $ timer_range = 7
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -356,8 +785,8 @@ label apt1_2him:
         jump apt1_bad1him
 
 label apt1_good1him:
-    $ time = 20
-    $ timer_range = 20
+    $ time = 8
+    $ timer_range = 8
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -373,8 +802,8 @@ label apt1_good1him:
             jump apt1_3him
 
 label apt1_bad1him:
-    $ time = 10
-    $ timer_range = 10
+    $ time = 5
+    $ timer_range = 5
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -406,8 +835,8 @@ label apt1_3him:
         jump apt1_bad2him
 
 label apt1_good2him:
-    $ time = 25
-    $ timer_range = 25
+    $ time = 8
+    $ timer_range = 8
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -423,8 +852,8 @@ label apt1_good2him:
             jump apt1_4him
 
 label apt1_neutralhim:
-    $ time = 15
-    $ timer_range = 15
+    $ time = 7
+    $ timer_range = 7
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -440,8 +869,8 @@ label apt1_neutralhim:
             jump apt1_4him
 
 label apt1_bad2him:
-    $ time = 5
-    $ timer_range = 5
+    $ time = 4
+    $ timer_range = 4
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -470,6 +899,7 @@ label apt1_4him:
         scene arguenegend
         with slowfade
         $ badhim = True
+        $ ending += 1
         "Moved by anger, he punches the nearest wall, leaving his fist's trace behind."
         scene black
         with slowfade
@@ -483,6 +913,7 @@ label apt1_4him:
         scene arguenegend
         with slowfade
         $ badhim = True
+        $ ending += 1
         h "It's just clear. Very clear. I'll leave you your space, no problem. I'll go take a walk."
         w "Yeah...maybe that will calm us both."
         h "Yeah, maybe."
@@ -501,6 +932,7 @@ label apt1_4him:
         scene argueposend
         with slowfade
         $ goodhim = True
+        $ ending += 1
         "She gently hugs him, softly crying of happiness."
         scene black
         with slowfade
@@ -515,6 +947,7 @@ label apt1_4him:
         scene argueposend
         with slowfade
         $ goodhim = True
+        $ ending += 1
         w "Yes, of course. I won't leave you alone."
         scene black
         with slowfade
@@ -529,8 +962,9 @@ label no_anshim:
     scene arguenegend
     with slowfade
     $ badhim = True
+    $ ending += 1
     h "You're leaving?"
-    w "You don't want to talk and I don't want to talk with a wall, so I'm leaving."
+    w "You don't want to talk and I don't want to talk to the wall, so I'm leaving."
     scene black
     with slowfade
     scene room
@@ -540,29 +974,251 @@ label no_anshim:
 
 ##### PHONECALL SCENE START ############################################################################################################################
 label apartment2:
-    scene phonecallprep
-    $ emb = 3
+    if lovepilogue == True:
+        "The couple is still sleeping."
+        jump apartmentlon
+    if separepilogue == True:
+        "You can hear the young student's cry from your room."
+        jump apartmentlon
+    if phonebad == True:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("separationtitle.mkv")
+        scene phonecallprep
+        scene separation
+        with slowfade
+        """
+        It's early morning.
 
-    """
-    The ugliest apartment in the building is occupied by a young student.
+        Yet, the young student's cry is so strong thetg people on the street can hear it.
+        """
+        sf """
+        Listen...
 
-    He's now immersed in the shadow of his room, looking at the darknes surrounding him.
+        I know you feel bad, but don't you think tou're exaggerating?
+        """
+        s """
+        Me? Exaggerating?
 
-    In his head there's his girlfriend's face. He misses her. Deadly.
+        How could you say something like that!
 
-    He'd like to call her and tell her he's sorry about everything, that he'll try to do his best to be a better person.
+        You know exactly how much Laura was important to me!
+        """
+        sf "Yes, of course, but...!"
+        s """
+        But how can you understand me?
 
-    But he doesn't know how to say it.
-    """
-    s """
-    So, uhm...what could I say to her...?
+        You've never been with a girl, after all...
+        """
+        sf "Hey, I don't think that was necessary!"
+        s """
+        She meant the world to me!
 
-    Well, let's start with the intention...the intention would be to bring her back with me.
+        Do you get it?
 
-    ...I think, at least.
+        The entire world! And now she...
 
-    So, maybe I could start with...
-    """
+        She's gone!
+
+        Forever!!
+
+        Do you know how long is forever?!
+        """
+        sf """
+        Oh, I know!
+
+        I'm only telling you to calm down a little.
+        """
+        s """
+        You really don't get it, then!
+
+        Calm down...
+
+        How could I ever calm down?
+
+        I miss her so much!
+
+        I miss her face...
+
+        The birthmarks on her left arm...
+
+        I miss her...
+        """
+        sf """
+        Hey, that's enough!
+
+        Don't get into too many details, please!
+        """
+        s """
+        What?
+        Aren't you here to listen to me?
+
+        And to comfort me?
+        """
+        sf "I am, but I don't want the details!"
+        s """
+        Ohh, poor me...
+
+        Even my friends don't want to listen to me...
+
+        Just like Laura did!
+        """
+        sf "Geez, you're really something, huh?"
+        s """
+        Laura!!
+
+        Where the hell are you?
+
+        Come back!!
+
+        I won't live without you!!
+
+        Come back to me!
+
+        Please...
+
+        I'm so lost...
+        """
+        """
+        Maybe he's too young to know about the love's suffering.
+
+        Or maybe too childish to accept it.
+
+        But, anyway, Laura won't certainly come back.
+
+        Because that's how things go.
+        """
+        $ separepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if phonegood == True:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("lovetitle.mkv")
+        scene love
+        with slowfade
+        g """
+        You know...
+
+        When I try to think about why we left each other...
+
+        Nothing comes to my mind.
+
+        It just seems so...stupid?
+
+        I don't know...
+        """
+        s """
+        I think I understand what you mean.
+
+        It seems strange to me too.
+        """
+        g """
+        Yeah...
+
+        I mean, why did we hurt each other so much?
+
+        What was the point?
+        """
+        s "Hmm, I really don't know."
+        g """
+        It's so strange...
+
+        All we want is love but...
+
+        When we finally have it, we throw it away.
+
+        And we do it without thinking about it twice.
+        """
+        s """
+        It's true.
+
+        But it's also true that sometimes love fades away.
+
+        Maybe we fall in love with someone else.
+
+        Or maybe the person we share our feelings just...
+
+        Doesn't fit us anymore.
+
+        And so we search for someone else.
+        """
+        g """
+        It sounds like an limitless quest.
+
+        If someone gets lost in it, it will just never end.
+        """
+        s """
+        Maybe you're right.
+
+        But I think that, at least for now, we can be happy we've found each other again.
+        """
+        g """
+        But what if we'll leave each other again?
+
+        What if we'll end up losing each other, in the future?
+        """
+        s "But what if it won't happen again?"
+        g """
+        I know, it's stupid thinking about that, but...
+
+        Loneliness makes me feel bad.
+
+        I don't want to feel like that anymore.
+        """
+        s """
+        I know, it's the same for me...
+
+        I realized how lost I am, without you.
+        """
+        """
+        A soft, sweet kiss and they hug each other...
+
+        Before sleep possess them, gently.
+        """
+        $ lovepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if phonegood == False and phonebad == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("phonetitle.mkv")
+        scene phonecallprep
+        with slowfade
+        $ emb = 3
+        """
+        The tiniest apartment in the building is occupied by a young student.
+
+        He's now immersed in the shadow of his room, looking at the darkness surrounding him.
+
+        In his head there's his girlfriend's face. He misses her. Deadly.
+
+        He'd like to call her and tell her he's sorry about everything, that he'll try to do his best to be a better person.
+
+        But he doesn't know how to say it.
+        """
+        s """
+        So, uhm...what could I say to her...?
+
+        Well, let's start with the intention...the intention would be to bring her back with me.
+
+        ...I think, at least.
+
+        So, maybe I could start with...
+        """
 
 label apt2_lessemb1:
     menu:
@@ -658,11 +1314,21 @@ label apt2_negative:
     show screen countdown
     menu:
         "Well, it would be nice...":
+            hide screen countdown
+            scene phonecallnegend
+            with slowfade
+            $ phonebad = True
+            $ ending += 1
             """
             She ends the call, without saying a word.
             The young student finds himself alone once again, surrounded by the darkness in the room.
             """
         "No, I think you won't...":
+            hide screen countdown
+            scene phonecallposend
+            with slowfade
+            $ phonegood = True
+            $ ending += 1
             g "I'll have to think about it. Just give me some time, please."
             s "Yes of course...I'll wait."
             g "Ok, bye then...for now."
@@ -686,6 +1352,8 @@ label apt2_neutral:
             g "You know, maybe...maybe we can put all this behind us."
             scene phonecallposend
             with slowfade
+            $ phonegood = True
+            $ ending += 1
             s "Really?"
             g "Yeah, why not?"
             "A smile on the student's face, and the phonecall calmly goes on."
@@ -695,6 +1363,8 @@ label apt2_neutral:
             s "I know, but what do I have to do?"
             scene phonecallnegend
             with slowfade
+            $ phonebad = True
+            $ ending += 1
             g "Just...I don't know, I really don't know."
             "The call ends. Without any goodbye, without any smile."
     scene black
@@ -718,6 +1388,8 @@ label apt2_good:
             s "Why have we done all this?"
             scene phonecallposend
             with slowfade
+            $ phonegood = True
+            $ ending += 1
             g "I don't even remember...and I think it's not important what it was."
             s "You think that?"
             g "Of course. Let's just go back to how we were. We can, right?"
@@ -728,6 +1400,8 @@ label apt2_good:
             s "Yeah, and I said I'm sorry about it."
             scene phonecallnegend
             with slowfade
+            $ phonebad = True
+            $ ending += 1
             g "Of course you are, but you'd better remember it. And very well."
             s "But I-"
             g "Don't worry, I understood. And I'll think about it, maybe."
@@ -742,6 +1416,8 @@ label apt2_good:
 label no_ans:
     scene phonecallnegend
     with slowfade
+    $ phonebad == True
+    $ ending += 1
     g "I guess you don't really wanna talk, then..."
     s "No wait-"
     "She instantly hangs up. The student only had the time of hearing the soft beginning of her crying."
@@ -754,31 +1430,252 @@ label no_ans:
 
 ##### OVERWORK SCENE START ############################################################################################################################
 label apartment3:
-    $ ease = 50
-    scene overworking
-    with slowfade
-    """
-    A small development studio occupies the left side of the third floor.
+    if meetepilogue == True:
+        "The meeting is over and now the studio is empty."
+        jump apartmentlon
+    if lod2epilogue == True:
+        "The young mother doesn't seem to be at home, now."
+        jump apartmentlon
+    if devgood == True:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("meetingtitle.mkv")
+        scene meeting
+        with slowfade
+        """
+        Silence and concentration linger in the meeting room.
 
-    As silent as it may seem, it's a very busy place in which work never seems to end.
 
-    In this moment, the whole team is focused on implementing new features.
+        """
+        $ meetepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if devneut == True:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("meetingtitle.mkv")
+        scene meeting
+        with slowfade
+        "This is the mildly good meeting epilogue"
+        $ meetepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if devbad == True:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("lodg2title.mkv")
+        scene lodger2
+        with slowfade
+        """
+        Loneliness.
 
-    The concentration is intense and the schedule tight. One month until the deadline.
-    """
+        A word that wasn't very common with the previous owners of this apartment.
+
+        But now, there is no trace left of them.
+
+        The computers have been sold, all the material and furnitures moved elsewhere.
+
+        This is what happens when a studio goes bankrupt.
+
+        But where someone finds their own failure, others may find some joy.
+
+        Even if they're lonely, just as this mother.
+
+        Who knows where her husband his.
+
+        Of course, if an husband ever existed.
+        """
+        ym """
+        It's only the two of us now, huh?
+
+        But that's good...
+
+        We're more than enough to make each other happy, right?
+
+        Your smile...it makes me feel so much better.
+
+        I hope you'll grow up fast...
+
+        I hope time will fly away and you'll grow up, without even realizing it.
+
+        And we'll do so many things...
+
+        We'll spend entire evenings talking, and I'll help you with your homeworks, and we'll live happy...and free.
+        """
+        $ lod2epilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if devgood == False and devneut == False and devbad == False:
+        $ ease = 50
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("overwtitle.mkv")
+        scene overworking
+        with slowfade
+        """
+        A small development studio occupies the left side of the third floor.
+
+        As silent as it may seem, it's a very busy place in which work never seems to end.
+
+        In this moment, the whole team is focused on implementing new features.
+
+        The concentration is intense and the schedule tight.
+
+        One month until the deadline.
+
+        The whole team is stressed.
+
+        Everyone is desperately trying to mediate between a relaxed workflow and an efficient one.
+
+        But every choice risks to lead them further from this balance.
+        """
 
 label apt3_q1:
     scene overworkingq1
     with slowdissolve
+    """
+    When you work with someone for a large amount of time...
+
+    You get to recognize their feelings by the expressions on their faces.
+
+    Or how they move.
+
+    Or how they talk.
+
+    So, as the Lead Artist moves closer to the desk, the Director instantly sense the incoming problem.
+
+    Surprisingly, the Lead's face is at ease.
+
+    Or at least more than usual.
+
+    There are no nervous tics on his face.
+
+    The fact he hasn't shaved for almost a month makes him look even better than usual.
+    """
+    a """
+    Uhm, sorry, but...
+
+    We've received e-mails from two members of the concept art department...
+    """
+    gd "What happened?"
+    a """
+    They decided to leave the team.
+    """
+    gd """
+    What a splendid idea.
+
+    Why so suddenly?!
+    """
+    a """
+    They found new opportunities in other studios...
+
+    And the project doesn't inspire them anymore.
+    """
+    gd """
+    That definately is a problem.
+
+    Of course we'll have to fire them, but...
+
+    Even two less people will create huge issues.
+    """
+    a """
+    Yes...
+
+    Of course, as our project is a 2D game, we'll have to re-schedule the workload for the department...
+
+    So...what should we do?
+    """
+    menu:
+        "We'll have to cut some features.":
+            $ ease += 25
+            a """
+            Are you sure?
+
+            Won't it be a problem?
+            """
+            gd """
+            We'll save some time for the development.
+
+            And the department won't be stressed out.
+            """
+            a "Understood. Fine, I'll tell the others, then."
+            gd "Good."
+        "We'll distribute the workload on remaining members.":
+            $ ease -= 25
+            a """
+            Is it really a good idea?
+
+            It sounds risky...
+            """
+            gd """
+            Well, it could be.
+
+            But if we don't do that, the project will be heavily affected by that.
+
+            I'd like it to be a matter of choice, but it isn't.
+            """
+            a "Yeah, that's true...I'll go tell all the department, then."
+            gd "Fine, good work."
+    jump apartment3_2
+label apartment3_2:
+    scene overworkingq2
+    with slowdissolve
+    """
+    Both in little and in bigger studios, problems with the department's members are common.
+
+    People leaving the team, or not properly doing their job or simply not good at communicating...
+
+    All this could lead to serious and impactful problems.
+
+    But people are not the only problematic element.
+
+    And that, even if already clear to the Director, becomes more obvious as the Tech Leader approaches.
+    """
     t "I'm sorry to disturb you, but we have a problem..."
-    gd "A problem? What kind of problem?"
+    gd """
+    A problem?
+
+    What kind of problem?
+    """
     t "One of the programmers has made some mistakes in the code, but he realized it just now."
     gd "And what kind of mistakes?"
-    t "Well, we've found some, but not all of them, yet. They don't seem to be dungerous, but they sure are a lot of pain."
-    gd "And he pushed them without checking? What is he, an idiot?"
+    t """
+    Well, we've found some, but not all of them, yet.
+
+    They don't seem to be dungerous, but they sure are a lot of pain.
+    """
+    gd """
+    And he uploaded them without checking?
+
+    What is he, an idiot?
+    """
     t "I already told him that."
-    gd "That's just wonderful. One month until the deadline and some imbecille makes mistakes in the code."
-    t "Well, the fact is that we have two options, now..."
+    gd """
+    That's just wonderful.
+
+    One month until the deadline and some imbecille makes mistakes in the code.
+
+    Well, we have two options, now...
+    """
     menu:
         "We can fix them, but it'll take time.":
             $ ease -= 25
@@ -789,61 +1686,37 @@ label apt3_q1:
             gd "We'll never gain more days. We'll have to manage the time we have and fix everything."
             t "That sure is troublesome..."
             gd "Ain't it?"
-        "We can leave them be and continue to push until the realease.":
+        "We can leave them be and push until the realease.":
             $ ease += 25
             gd "We already are in a bad situation. Adding the fix of a similar problem would only make everything worst."
             t "Yes, I understand...but wouldn't we gain more time to finish the project?"
             gd "Of course not. The world won't stop only because we have to fix coding mistakes."
             t "Hm, that makes sense."
-    jump apartment3_2
-label apartment3_2:
-    scene overworkingq2
-    with slowdissolve
-    """
-    As the Lead Artist moves closer to the desk, the Director instantly sense the incoming problem.
-
-    Surprisingly, the Lead's face is at ease. Or at least more than usual.
-    """
-    a "The producer has asked for a reunion, planned for next week."
-    gd "And?"
-    a "He asked for all the departments to be present, but everyone's loaded with work. None of us can go."
-    gd "Of course, that's a problem."
-    a "So...what should we do?"
-    menu:
-        "There'll be only the leads, it's the most logic thing to do.":
-            $ ease += 25
-            a "Are you sure? Won't it be a problem?"
-            gd """
-            We'll save some time for the development and it's not that necessary to have everyone there.
-
-            That would only be confusing.
-            """
-            a "Understood. Fine, I'll tell the others, then."
-            gd "Good."
-        "If he asked for everyone then everyone will go.":
-            $ ease -= 25
-            a "Is it really a good idea?"
-            gd """
-            Well, as I said, if he has asked for everyone, then everyone has to go.
-
-            I'd like it to be a matter of choice, but it isn't.
-            """
-            a "Yeah, that's true...I'll go tell all the departments, then."
-            gd "Fine, good work."
     jump apartment3_3
 label apartment3_3:
     if ease ==  100:
         scene overworkingnegend
         with slowfade
-        i "The story of this project seems to be interesting, could you tell me more about it?"
-        gd """
-        Well, all I can say is that we decided to fully concentrate on finishing it. At least the base.
+        $ devbad = True
+        $ ending += 1
+        """
+        The stress level in a developement studio is similar to a thin string.
 
-        We never thought it would end up like that.
+        If one pulls it too much, it will easily break.
 
-        I only now realize that my choices weren't the best I could make, even though in that moment they seemed to be.
+        And it's difficult not to do so.
 
-        I think it's my fault if the team disbanded, in the end...it's a very heavy weight on my shoulders.
+        A single choice's impact can destroy everything.
+
+        And the studio, from a day to the other, could no longer exist.
+
+        The space it occupied becomes empty.
+
+        The people who built it and took part in the work lose contact as they're divided by distance.
+
+        And someone else will soon occupy that space.
+
+        As if nothing ever happened.
         """
         scene black
         with slowfade
@@ -854,6 +1727,8 @@ label apartment3_3:
     if ease == 50:
         scene overworkingposend
         with slowfade
+        $ devgood = True
+        $ ending += 1
         """
         Sitted at his chair, the director continues working, silently and focused.
 
@@ -872,6 +1747,8 @@ label apartment3_3:
     if ease == 0:
         scene overworkingneutend
         with slowfade
+        $ devneut = True
+        $ ending += 1
         """
         Choices and consequences can be cruel.
 
@@ -879,7 +1756,7 @@ label apartment3_3:
 
         Even though the director and the whole team are proceeding towards the deadline, the stress rises, tiredness caughts everyone.
 
-        Fixing problems, in the end, could create new and unexpected ones, in an endless circle of choices and consequences.
+        Fixing problems could create new and unexpected ones, in an endless circle of choices and consequences.
         """
         scene black
         with slowfade
@@ -890,31 +1767,43 @@ label apartment3_3:
 
 ##### SOLITUDE SCENE START ############################################################################################################################
 label apartment4:
-    $ phonering = False
-    $ sleep = False
-    $ read = False
-    $ mirror = False
-    $ smoke= False
-    $ tv = False
-    $ windowlook = False
-    $ light = False
-    $ boredom = 50
-    scene solitude00
-    with slowfade
-    """
-    In the fourth and last apartment lives a young girl.
+    if solend == True:
+        """
+        The lonely girl isn't at home anymore...
 
-    In a morning of boredom, she's waiting for a phonecall.
+        Maybe she's in another apartment?
+        """
+        jump apartmentlon
+    if solend == False:
+        $ phonering = False
+        $ sleep = False
+        $ read = False
+        $ mirror = False
+        $ smoke= False
+        $ tv = False
+        $ windowlook = False
+        $ light = False
+        $ boredom = 50
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("soltitle.mkv")
+        scene solitude00
+        with slowfade
+        """
+        In the fourth and last apartment lives a young girl.
 
-    All over the walls and furniture there are signs that she's alone.
+        In a morning of boredom, she's waiting for a phonecall.
 
-    Her loneliness though, is only proof of her complete freedom.
+        All over the walls and furniture there are signs that she's alone.
 
-    Freedom to act, freedom to choose.
+        Her loneliness though, is only proof of her complete freedom.
 
-    She can do whatever she wants, use whatever she wants to spend some time while she waits.
-    """
-    jump apt4opening
+        Freedom to act, freedom to choose.
+
+        She can do whatever she wants, use whatever she wants to spend some time while she waits.
+        """
+        jump apt4opening
 
 label apt4opening:
     scene solitude
@@ -1010,7 +1899,7 @@ label windowsol:
                 scene solwindow
                 with dissolve
                 $ windowlook = True
-                $ boredom -= 15
+                $ boredom -= 10
                 """
                 Outside the window she sees the facades of other buildings.
 
@@ -1097,7 +1986,7 @@ label books:
                 """
                 show solpoetry
                 with slowdissolve
-                $ renpy.pause(14,hard=True)
+                $ renpy.pause(10,hard=True)
                 hide solpoetry
                 with slowdissolve
                 l "I really love this poem."
@@ -1187,6 +2076,7 @@ label phone:
         """
         scene solbadend
         with fade
+        $ ending += 1
         """
         She hangs up without saying a word. Not even a single one.
 
@@ -1200,6 +2090,7 @@ label phone:
 
         Even though she can't control everything and can't change everything, there's still some hope in a brighter future.
         """
+        $ solend = True
         scene black
         with slowfade
         scene room
@@ -1261,6 +2152,7 @@ label phone:
         j "Bye..."
         scene solgoodend
         with fade
+        $ ending += 1
         """
         She hangs up.
 
@@ -1282,9 +2174,18 @@ label phone:
 
         Hope for the future, for the decisions she still can make.
         """
+        $ solend = True
         scene black
         with slowfade
         scene room
         with fade
         $ renpy.pause(1)
         jump room
+
+##### END SCENE START ############################################################################################################################
+label gamending:
+    "aaa"
+    scene black
+    with slowfade
+    $ renpy.pause(1)
+    return

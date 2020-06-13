@@ -2,13 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 861: expected menuitem
-    jump apt4screen
-    ^
-
-File "game/script.rpy", line 886: expected menuitem
-    jump apt4screen
-    ^
+File "game/script.rpy", line 1620: end of line expected.
+(Perhaps you left out a " at the end of the first line.)
+    """
+    
+        """
+           ^
 
 Ren'Py Version: Ren'Py 7.2.2.491
-Thu Mar 05 23:12:22 2020
+Tue May 12 13:03:49 2020
