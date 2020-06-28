@@ -3,17 +3,17 @@ screen roomscreen:
         idle "room.png"
         hover "roomhover.png"
         ground "room.png"
-        hotspot(360, 24, 1170, 651) action Jump ("apartments")
+        hotspot(119, 1, 1633, 612) action Jump ("apartments")
 
 screen apartmentsscreen:
     imagemap:
         idle "apartments.png"
         hover "apartmentshover.png"
         ground "apartments.png"
-        hotspot(39, 9, 744, 485) action Jump ("apartment3")
-        hotspot(969, 61, 902, 473) action Jump ("apartment1")
-        hotspot(40, 560, 749, 435) action Jump ("apartment2")
-        hotspot(1008, 553, 900, 493) action Jump("apartment4")
+        hotspot(41, 451, 863, 348) action Jump ("apartment3")
+        hotspot(1251, 434, 229, 128) action Jump ("apartment1")
+        hotspot(57, 824, 844, 251) action Jump ("apartment2")
+        hotspot(1250, 695, 221, 130) action Jump("apartment4")
 
 screen apartment1screen:
     imagemap:

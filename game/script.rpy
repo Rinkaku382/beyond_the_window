@@ -9,7 +9,7 @@ define g = Character("Laura")
 define gd = Character("Game Director")
 define t = Character("Tech Lead")
 define a = Character("Lead Artist")
-define i = Character("Interviewer")
+define i = Character("Intern")
 define l = Character("Lonely Girl")
 define j = Character("Julie")
 define m = Character("Mom")
@@ -70,6 +70,10 @@ label start:
     """
 
 label room:
+    if ending >= 2:
+        call screen roomscreen
+    if epilogues >= 1:
+        call screen roomscreen
     if ending == 1:
         "Maybe it could be worth checking the apartments already visited, too."
         call screen roomscreen
@@ -87,7 +91,7 @@ label apartments:
     call screen apartmentsscreen
 label apartmentlon:
     call screen apartmentsscreen
-##### ARGUMENT SCENE START ############################################################################################################################
+##### APARTMENT 1 SCENE START ############################################################################################################################
 label apartment1:
     if famepilogue == True:
         "The family is now eating happily..."
@@ -95,21 +99,132 @@ label apartment1:
     if lod1epilogue == True:
         "The new lodgers are watching the dusk while drinking tea, silently."
         jump apartmentlon
-    if goodher == True or goodhim == True and solend == False:
-        """
-        There's no one here, now.
-
-        Maybe it's worth checking out the other apartments?
-        """
-        jump apartmentlon
-    if goodher == True or goodhim == True and solend == True and famepilogue == False and lod1epilogue == False:
+    if solend == True and goodhim == True and famepilogue == False:
         scene black
         with slowfade
         $ renpy.pause(0.5)
         $ renpy.movie_cutscene("dinnertitle.mkv")
         scene dinner
         with slowfade
-        "This is the dinner epilogue"
+        """
+        A calm evening.
+
+        A family reunion.
+
+        Silent feelings that fill the apartment's atmosphere.
+        """
+        m "So, how are you feeling, sweetie?"
+        l "I still don't really know..."
+        m "You know...love affairs are complicated. Very complicated."
+        d """
+        Yes, indeed.
+
+        What is important, though, is to not fall in hatred's trap.
+
+        One must always love, even if he's not loved.
+        """
+        menu:
+            "I still have...hope.":
+                m "Hope is the basis for love."
+                d """
+                Yes, to have hope is the same thing as loving life.
+
+                You know, dear...living is difficult.
+
+                Very difficult.
+
+                But since you have hope you can endure everything.
+
+                You can endure pain.
+
+                You can endure grief.
+
+                You can endure solitude.
+
+                And to endure all those things means that you can bravely take on life.
+
+                Without any fear, that is.
+                """
+                """
+                The young lonely girl smiles at her parents.
+
+                In her memory the face of who is now her ex-girlfriend still shines.
+
+                But that shining is becoming more and more pale.
+
+                Yet, she does not feel any hate for her.
+
+                She is sad, that's for sure.
+
+                She still feels more lonely than before.
+
+                But as long as she has that bright and pure hope, she feels calm.
+
+                And even if the world is harsh and life isn't beautiful or pleasing as she wouls like it to be...
+
+                She still believes that the future could be better.
+                """
+            "But how can one still love?":
+                d """
+                Each one of us is lonely.
+
+                We are lonely because we're singular individuals.
+
+                And even when we live with someone...
+
+                When we love somaone and share our life with him or her...
+
+                We still are singular individuals and so we're still alone.
+
+                Once someone understands that, he can understand that love is mutable.
+                """
+                m """
+                And since it's mutable, we only have to accept that fact.
+
+                Understanding and accepting means that once love seems to be faded between two or more people,
+
+                It really isn't, as love and hope are the basis of human connection.
+
+                She left you, that's true.
+
+                But you two have been connected for some time and you still are as human beings.
+
+                As old friends and lovers.
+
+                This unity, when you think about it, is strong enough to eliminate all the hate you could feel.ù
+
+                And even if you now feel lonely physically and sentimentally...
+
+                That doesn't mean you'll meet someone that will once again erase these feelings.
+
+                You have to put hope in the future.
+                """
+                """
+                'To put hope in the future...'
+
+                These words reverberates in the lonely girl's mind.
+
+                Maybe they'll stay in her head forever, as long as she truly hopes things will get better.
+
+                But surely as long as she tries her best to fulfill that hope.
+
+                But hoping means to act, and not to lie in wait of better opportunities.
+                """
+        $ famepilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if solend == True and goodher == True and famepilogue == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("dinnertitle.mkv")
+        scene dinner
+        with slowfade
         """
         A calm evening.
 
@@ -223,7 +338,7 @@ label apartment1:
         $ renpy.pause(1)
         jump room
 
-    if badher == True or badhim == True and solend == True and famepilogue == False and lod1epilogue == False:
+    if solend == True and badhim == True and lod1epilogue == False:
         scene black
         with slowfade
         $ renpy.pause(0.5)
@@ -478,7 +593,275 @@ label apartment1:
         with fade
         $ renpy.pause(1)
         jump room
+    if solend == True and badher == True and lod1epilogue == False:
+        scene black
+        with slowfade
+        $ renpy.pause(0.5)
+        $ renpy.movie_cutscene("lodg1title.mkv")
+        scene lodger1
+        with slowfade
+        """
+        Once someone abandons a house, someone else is instantly ready to occupy it.
 
+        An apartment always keeps the leftovers of its previous owners.
+
+        It hides them, making them invisible.
+
+        Pale memories of who has been there before.
+
+        But somehow ready to be catched by the eyes of those who know how to observe.
+
+        Those who are able to see beyond the quiet state of things.
+        """
+        tl "So, you're the daughter of the previous owners, right?"
+        l "Yes. They asked me to take care of the house and find a new lodger..."
+        tl "Oh, I see."
+        "An awkward, embarassing silence."
+        tl "It'a nice to meet you, really."
+        l "Oh, for me too, yes."
+        tl "Well anyway, I wanted to ask you something."
+        l "Yes?"
+        tl "Your parents left here some things, right?"
+        l "Well, yes."
+        tl """
+        Could you tell me why?
+
+        I mean, usually people take everything away when tey move out.
+
+        But your parents left many things.
+        """
+        l "Oh, it's some sort of habitude of them."
+        tl "Habitude...?"
+        l """
+        Yes, they leave things that could be useful for others.
+
+        They don't realize that sometimes it would be better if they...didn't.
+        """
+        tl "I think it's gentle."
+        l "Really?"
+        tl """
+        Yes, really.
+
+        It's not that important if what they leave is useful or not.
+
+        It's gentle because it means they care about others.
+        """
+        menu:
+            "What if you'll have to toss them?":
+                tl """
+                That would be unfortunate, but you see...
+
+                Truth is that I needed exactly what they left.
+
+                Let's say that I had to leave some things in the  place where I used to live.
+
+                So now I have almost nothing.
+
+                And it's the same for the person I'll start living with in the next days.
+
+                So what they left will be very useful to us.
+                """
+                l "Oh, that sounds...mysterious. And very sad, too."
+                tl """
+                There's nothing so mysterious about it, really...
+
+                It's what happens when you hurt someone, you know?
+
+                You break the promise made with that person and everything there was just...disappears.
+
+                And you start falling, trying to build something new out of the mistake you made.
+
+                Of course feelings have been hurt.
+
+                Of course there are broken hurts and tears, and screams, and...
+
+                Oh, well, I'm sorry...
+
+                I know that's none of your business, but...every time I start talking I can't stop.
+                """
+                menu:
+                    "No, please...go on.":
+                        tl """
+                        Oh...
+
+                        Well, now that you said it I realize it's not so simple to continue, but...
+
+                        Let's start by that: betraying someone is painful.
+
+                        Painful for both parts, that is.
+
+                        But even if it is, there's still some kind of...love?
+
+                        I mean, you of course do it for love.
+
+                        There may be physical implications, desires, but for me...there was only love.
+
+                        And it's that love what I decided to follow.
+
+                        So here I am now, a tired poet with a broken history and a 'new beginning'.
+                        """
+                        l "That must be painful..."
+                        tl """
+                        Yes, it is.
+
+                        But as long as love is still in my life...I feel better.
+                        """
+                        """
+                        Feeling better as long as there is love...
+
+                        Thinking about it, the lonely girl realizes that love is still there for her too.
+
+                        Love for her family.
+
+                        Love for herself.
+
+                        Love for life itself.
+
+                        Could it be that this love will make her feel better too?
+                        """
+                    "Yes, that's none of my business.":
+                        tl """
+                        Yeah, right.
+
+                        Well, it's nice that you came here to say hi, anyway.
+
+                        I already feel welcomed.
+                        """
+                        l "Very good. I guess I must leave, now."
+                        tl "That's fine. Bye, then and...thank you for listening, anyway."
+                        $ lod1epilogue = True
+                        $ epilogues += 1
+                        scene black
+                        with slowfade
+                        scene room
+                        with fade
+                        $ renpy.pause(1)
+                        jump room
+            "It's kind of you.":
+                tl """
+                Well, I think that kindness is the least I can be.
+
+                I mean...we live in an unkind environment, right?
+
+                And what good can make being enraged because of items I don't want?
+
+                Or because other people decide to be gentle and think about what could be useful and then leave it?
+
+                Your parents decided to separate themselves of something in what I can imagine isn't a simple moment.
+
+                Moving out is never simple, for anyone.
+
+                And, to be sincere, they just saved me, as I don't have at all these things!
+
+                So, if it wasn't for them, me and the person I'll live with would have passed a not so great moment in a shop, searching for them!
+                """
+                l "That really make me happy, then!"
+                tl """
+                Yeah, me too.
+
+                I think yours is a very gentle family.
+
+                I would like to meet your parents, one day, but I think that you got all their kindness.
+
+                You came here to say hi, help me understand some things about the apartment and treated me very gently.
+
+                That's something...rare.
+
+                I think that when people have choices, they can be very mean.
+
+                But not you.
+
+                And that tells a lot.
+                """
+        """
+        The apartment's door suddenly opens.
+        """
+        scene lodger1_2
+        with dissolve
+        """
+        A young girls enters and watches us with a large, surprised smile.
+        """
+        tl "Oh, you're here finally!"
+        lf """
+        Sorry, I'm late! There was a lot of traffic...
+
+        And you are?
+        """
+        l "The previous owners' daughter, nice to meet you."
+        tl """
+        She lives downstairs, so she came here to say hi.
+
+        Oh, I made some tea for you too, take it.
+        """
+        lf "Thanks a lot!"
+        scene lodger1_3
+        with dissolve
+        lf "Knowing him, I guess he already thanked you at least ten times for coming here, right?"
+        tl """
+        Hey, that's not true! I tried to restrain myself...
+
+        This time.
+        """
+        l "Uhmm, don't worry, he was very gentle."
+        lf "That's good, he always thanks and excuses himself too much!"
+        tl "I think it wasn't necessary to tell her all that..."
+        lf "Oh, you're right, I'm sorry!"
+        """
+        The lonely girl finishes her tea and smiles at both of them.
+
+        The silence surrounding them all is starting to be a little embarassing.
+        """
+        lf "Listen, why don't you stay with us for dinner?"
+        l "Oh no, don't worry, please! I have to go now, anyway."
+        tl "No problem, maybe another day, right?"
+        l "Yes, that would be splendid!"
+        lf "Well, then, you can come here when you want."
+        l "Thanks, you're both very kind. It was very nice meeting you."
+        scene black
+        with slowfade
+        """
+        And so she says hi and leaves.
+
+        As she goes down the stairs, she starts thinking about how beautiful that couple was.
+
+        And the words of a poem she listened long time ago flows through her mind.
+
+        It sounded like...
+
+        'Love is eternal, here rests for a time.'
+
+        Perhaps the dead lie happily in the well tended plots, or perhaps they'd prefer the forgotten overgrown corners.
+
+        Perhaps they prefer their names obliterated by time and the weather.
+
+        Perhaps not.'
+
+        Thinking about it...
+
+        She instantly understands that, as the poem's author, she should leave.
+        """
+        $ lod1epilogue = True
+        $ epilogues += 1
+        scene black
+        with slowfade
+        scene room
+        with fade
+        $ renpy.pause(1)
+        jump room
+    if goodher == True or goodhim == True and solend == False:
+        """
+        There's no one here, now.
+
+        Maybe it's worth checking out the other apartments?
+        """
+        jump apartmentlon
+    if  badher == True or badhim == True and solend == False:
+        """
+        There's no one here, now.
+
+        Maybe it's worth checking out the other apartments?
+        """
+        jump apartmentlon
     if goodher == False and goodhim == False and badher == False and badhim == False:
         scene black
         with slowfade
@@ -785,8 +1168,8 @@ label apt1_2him:
         jump apt1_bad1him
 
 label apt1_good1him:
-    $ time = 8
-    $ timer_range = 8
+    $ time = 7
+    $ timer_range = 7
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -852,8 +1235,8 @@ label apt1_good2him:
             jump apt1_4him
 
 label apt1_neutralhim:
-    $ time = 7
-    $ timer_range = 7
+    $ time = 6
+    $ timer_range = 6
     $ timer_jump = 'no_anshim'
     show screen countdown
     menu:
@@ -972,7 +1355,7 @@ label no_anshim:
     $ renpy.pause(1)
     jump room
 
-##### PHONECALL SCENE START ############################################################################################################################
+##### APARTMENT 2 SCENE START ############################################################################################################################
 label apartment2:
     if lovepilogue == True:
         "The couple is still sleeping."
@@ -1446,8 +1829,134 @@ label apartment3:
         """
         Silence and concentration linger in the meeting room.
 
+        Everyone's gazes don't know where to go, they just wander from face to face insistently.
 
+        No one speak, as they're all waiting for the director to say something.
+
+        But he's still trying to think.
+
+        To find the fish he's looking for in a stormy ocean of ideas.
+
+        He knows he's there, somewhere.
+
+        Waiting for him.
+
+        Hidden in the darkness, deep in his mind's abyss.
+
+        And then, suddenly, a young girl decides to speak.
+
+        She's been with the team for less than three months...
+
+        But has already shown how skilled she is.
+
+        So the director and all the team listen to her, focused on every word.
         """
+        i """
+        Is there really something wrong with a game entirely set in an apartment?
+
+        I mean...
+
+        Why don't we try it out anyway?
+
+        I don't think we'll solve anything by sitting here, waiting for better ideas to come out.
+
+        We have all the references for it and the market analysis seems pretty clear regarding survival horrors.
+
+        So...I think we should do it.
+
+        It's an interesting idea and has enough space for each department.
+        """
+        """
+        The director seems happy and, so, all the team is too.
+
+        He's still thinking about the idea, as he's not entirely convinced about it.
+
+        The previous game has already been finished, so it's now time to decide what to do next.
+
+        There are some ideas, concepts and mechanics the team wants to explore, but...
+
+        Are they all worth the efforts that need to be made?
+
+        The whole team is obviously concerned about the budget the game will need...
+
+        But, mostly, the game's profit when it will launch.
+
+        Could a game like this work well?
+
+        Will publishers accept and finance the idea?
+        """
+        gd """
+        It really is a good idea...
+
+        After all, each one of us has a different life and, of course, lives in a different apartment.
+
+        Our experiences could grant solidity, strength to the game's theme.
+
+        But there is the financial aspect.
+
+        And we can't just jump ahead without thinking about it in detail.
+
+        A horror game...
+
+        I think you're right about it being, probably, the right project for us.
+
+        As we always had that genre in mind in our previous works but never truly tried to fully work on it.
+        """
+        a """
+        But...
+
+        Are we so sure about it?
+
+        I mean, would someone be really interested in something like that?
+
+        Not that I don't like it, really, but I'm worried...
+
+        Could we really make something at least interesting with that genre?
+
+        We never tried to go full horror with any project before, so...
+
+        I don't know, I'm afraid we should stick to our comfort zone.
+        """
+        menu:
+            "Let's take the risk.":
+                gd """
+                I know what you mean.
+
+                That fear is completely logical, but...
+
+                Sometimes it's better to try harder and do something different.
+
+                Out team is already well formed.
+
+                Even though we're known by many people, publishers and other development studios...
+
+                If we decide to make something entirely new, we could fail.
+
+                But that could happen even with a project similar to things we've already made.
+
+                Sticking to our comfort zone won't mean that we'll keep making good projects.
+
+                It'll only mean that we'll keep on making the same kind of stuff.
+
+                But if we focus more on what we can and want to say to players...
+
+                And on how we can do that with a new game, then we'll make something that at least for us will mean something.
+
+                And if we make something meaningfull for us, then we'll never be wrong.
+
+                Is it suicidal for an entire team?
+
+                Of course it is.
+
+                But as I think about it...
+
+                I don't see why we should not follow this idea.
+
+                I think she is right and we should do it.
+                """
+            #"I agree with you.":
+                #gd """
+                #"""
         $ meetepilogue = True
         $ epilogues += 1
         scene black
@@ -1694,11 +2203,11 @@ label apartment3_2:
             t "Hm, that makes sense."
     jump apartment3_3
 label apartment3_3:
-    if ease ==  100:
+    if ease >= 100:
         scene overworkingnegend
         with slowfade
         $ devbad = True
-        $ ending += 1
+        $ ending == 1
         """
         The stress level in a developement studio is similar to a thin string.
 
@@ -1730,11 +2239,13 @@ label apartment3_3:
         $ devgood = True
         $ ending += 1
         """
-        Sitted at his chair, the director continues working, silently and focused.
+        Seated at his chair, the director continues working, silently and focused.
 
-        Around him, a small number of other people, like a small troop of soldiers, follow his directions obediently.
+        Around him, a small number of other people, like a troop of soldiers, follow his directions.
 
-        And even though sometimes his methods are harsh and the schedule is thight, the project calmly procedes towards the deadline.
+        And even though sometimes his methods may be harsh and the schedule is thight...
+
+        The project calmly procedes towards the deadline.
 
         Not all the problems have been repaired but, at least, everything seem to be fine.
         """
@@ -1747,16 +2258,20 @@ label apartment3_3:
     if ease == 0:
         scene overworkingneutend
         with slowfade
-        $ devneut = True
+        $ devgood = True
         $ ending += 1
         """
         Choices and consequences can be cruel.
 
-        Although all the problems have been fixed, it doesn't mean that everything, now, will be alright.
+        Even though all the problems have been fixed...
 
-        Even though the director and the whole team are proceeding towards the deadline, the stress rises, tiredness caughts everyone.
+        It doesn't mean that everything, now, will be alright.
 
-        Fixing problems could create new and unexpected ones, in an endless circle of choices and consequences.
+        As the director and the whole team are proceeding towards the deadline, the stress rises, tiredness caughts everyone.
+
+        Fixing problems could create new and unexpected ones.
+
+        In an endless circle of choices and consequences.
         """
         scene black
         with slowfade
@@ -1767,6 +2282,18 @@ label apartment3_3:
 
 ##### SOLITUDE SCENE START ############################################################################################################################
 label apartment4:
+    if famepilogue == True:
+        """
+        She's still upstairs with her family.
+        """
+        jump apartmentlon
+    if lod1epilogue == True:
+        """
+        The lonely girl is back, now...
+
+        But she's sleeping.
+        """
+        jump apartmentlon
     if solend == True:
         """
         The lonely girl isn't at home anymore...
@@ -1835,7 +2362,7 @@ label tv:
                 scene soltv
                 with dissolve
                 $ tv = True
-                $ boredom += 25
+                $ boredom += 30
                 """
                 On every channel there are only boring programs.
 
@@ -1866,7 +2393,7 @@ label bed:
                 scene solbed
                 with dissolve
                 $ sleep = True
-                $ boredom += 15
+                $ boredom += 20
                 """
                 As she lies down on the bed, covering herself up with the duvet and blanket, she fall asleep.
 
@@ -2184,8 +2711,8 @@ label phone:
 
 ##### END SCENE START ############################################################################################################################
 label gamending:
-    "aaa"
+    "Here will be the ending."
+    stop music fadeout (3)
     scene black
     with slowfade
-    $ renpy.pause(1)
     return
