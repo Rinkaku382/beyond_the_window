@@ -82,6 +82,26 @@ label room:
     else:
         call screen roomscreen
 
+label ink:
+    """
+    aaa
+    """
+label notes:
+    """
+    aaa
+    """
+label board:
+    """
+    aaa
+    """
+label mug:
+    """
+    aaa
+    """
+label lamp:
+    """
+    aaa
+    """
 label apartments:
     scene roomhover
     $ renpy.pause(0.5)
