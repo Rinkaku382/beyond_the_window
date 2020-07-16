@@ -71,7 +71,6 @@ label start:
 
     A pure and complete idea.
     """
-
     scene room
     with slowfade
     """
@@ -149,7 +148,6 @@ label apartments:
     $ renpy.pause(0.5)
     scene apartments
     with slowdissolve
-    $ renpy.pause(1)
     call screen apartmentsscreen
 label apartmentlon:
     call screen apartmentsscreen
@@ -1990,7 +1988,7 @@ label apt2_1:
 
 label apt2_lessemb2:
     menu:
-        "I thought that, maybe, you'd want to come back with me...":
+        "I thought that you'd want to come back with me...":
             $ emb += 1
             s "Yes, I'm sure this is the right path!"
             jump apt2_2
@@ -2559,7 +2557,7 @@ label apt3_q1:
     So...what should we do?
     """
     menu:
-        "We'll have to cut some features.":
+        "Cut some features.":
             $ ease += 25
             a """
             Are you sure?
@@ -2577,7 +2575,7 @@ label apt3_q1:
             Fine, I'll tell the others, then.
             """
             gd "Good."
-        "We'll distribute the workload on the remaining members.":
+        "Distribute the workload on remaining members.":
             $ ease -= 25
             a """
             Is it really a good idea?
@@ -2635,7 +2633,7 @@ label apartment3_2:
     Well, we have two options, now...
     """
     menu:
-        "We can fix them, but it'll take time.":
+        "Fix them, but it'll take time.":
             $ ease -= 25
             gd "We can't deliver a bugged game, you know that as well."
             t "Of course, we can tell the producer we'll have to schedule a new date for the release."
@@ -2650,7 +2648,7 @@ label apartment3_2:
             """
             t "That sure is troublesome..."
             gd "Ain't it?"
-        "We can leave them be and push until the realease.":
+        "Leave them be and push until the realease.":
             $ ease += 25
             gd """
             We already are in a bad situation.
@@ -3628,7 +3626,7 @@ label interviewlodfquest:
                 jump interviewlodfquest
             "What do you most wish for?" if not what:
                 $ what = True
-                tl """
+                lf """
                 I wish that me and my fiancé could be together without worrying about what others think.
 
                 This relationship has caused many troubles...
@@ -3734,11 +3732,8 @@ label interviewtfquest:
 label interviewend:
     scene black
     with slowfade
-    """
-    Who are you?
-
-    What do you most wish for?
-    """
+    $ renpy.pause(0.5)
+    $ renpy.movie_cutscene("ending.mkv")
     stop music fadeout (3)
     scene black
     with slowfade
